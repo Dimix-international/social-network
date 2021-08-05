@@ -1,0 +1,16 @@
+.main{
+    grid-area: main;
+    grid-column: 2/3;
+    display: grid;
+    grid-template-rows: 1fr;
+    grid-template-columns: minmax(auto, 200px) 1fr;
+    column-gap: 20px;
+
+    @media(max-width: 768px) {
+        grid-template-columns: 1fr;
+    }
+}
+.main__content {
+    display: flex;
+    flex-direction: column;
+}
