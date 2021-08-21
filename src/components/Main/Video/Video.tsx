@@ -4,6 +4,7 @@ import c from './Video.module.scss'
 export const Video = () => {
     return (
         <div className={c.music}>
+            <h1>Video</h1>
             Video
             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quasi, qui?</p>
             <ul>
