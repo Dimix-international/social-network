@@ -18,6 +18,9 @@ export const Sidebar = () => {
                     <li>
                         <a href="#" className={classes.link}>Music</a>
                     </li>
+                    <li>
+                        <a href="#" className={classes.link}>Friends</a>
+                    </li>
                 </ul>
                 <a href={'#'} className={`${classes.link} ${classes.setting}`}>
                     Settings
