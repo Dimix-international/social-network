@@ -5,6 +5,8 @@ export const Video = () => {
     return (
         <div className={c.music}>
             Video
+            <p>vidossss</p>
         </div>
+
     )
 }
