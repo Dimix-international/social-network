@@ -1,27 +1,31 @@
 import React from "react";
-import classes from './Sidebar.module.scss'
+import { NavLink } from "react-router-dom";
+import s from './Sidebar.module.scss'
 
 export const Sidebar = () => {
     return (
-        <aside className={classes.sidebar}>
-            <nav className={classes.menu}>
-                <ul className={classes.list}>
+        <aside className={s.sidebar}>
+            <nav className={s.menu}>
+                <ul className={s.list}>
                     <li>
-                        <a href="#" className={classes.link}>Profile</a>
+                        <NavLink to="/profile" className={s.link} activeClassName={s.active}>Profile</NavLink>
                     </li>
                     <li>
-                        <a href="#" className={classes.link}>Messages</a>
+                        <NavLink to="/dialogs" className={s.link} activeClassName={s.active}>Messages</NavLink>
                     </li>
                     <li>
-                        <a href="#" className={classes.link}>News</a>
+                        <NavLink to="/news" className={s.link} activeClassName={s.active}>News</NavLink>
                     </li>
                     <li>
-                        <a href="#" className={classes.link}>Music</a>
+                        <NavLink to="/music" className={s.link} activeClassName={s.active}>Music</NavLink>
+                    </li>
+                    <li>
+                        <NavLink to="/video" className={s.link} activeClassName={s.active}>Video</NavLink>
                     </li>
                 </ul>
-                <a href={'#'} className={`${classes.link} ${classes.setting}`}>
+                <NavLink to={'/settings'} className={`${s.link} ${s.setting}`} activeClassName={s.active}>
                     Settings
-                </a>
+                </NavLink>
             </nav>
         </aside>
     )

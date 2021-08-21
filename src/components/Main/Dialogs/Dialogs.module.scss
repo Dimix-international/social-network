@@ -1,0 +1,5 @@
+.dialogs {
+  display: grid;
+  grid-template: 1fr / 1fr minmax(200px, auto);
+  column-gap: 20px;
+}

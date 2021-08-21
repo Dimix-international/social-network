@@ -1,22 +1,33 @@
 import React from "react";
 import c from './Posts.module.scss';
 import {Post} from "./Post/Post";
+import {Form} from "./Form/Form";
+import {PostPropsType} from "../../../../Redux/state";
 
-export const Posts = () => {
+type TypePosts = {
+    posts: Array<PostPropsType>
+}
+export const Posts = (props: TypePosts) => {
     return (
         <div>
             <div className={c.title}>
                 My posts
             </div>
-            <div className={c.new}>
-                Forms
-            </div>
+            <Form />
             <div className={c.list}>
-                <Post
-                    avatar={'https://cdnimg.rg.ru/i/gallery/87d52c68/1_9894c58c.jpg'}
-                    message={'Good morning Bro!'}
-                    likesCount = {10}
-                />
+                {
+                    props.posts.map (post => {
+                        return (
+                            <Post
+                                key={post.id}
+                                id={post.id}
+                                avatar={post.avatar}
+                                message={post.message}
+                                likesCount={post.likesCount}
+                            />
+                        )
+                    })
+                }
             </div>
         </div>
     )

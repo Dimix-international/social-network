@@ -2,11 +2,12 @@ import React from "react";
 import c from './Post.module.scss';
 
 type PostType = {
+    id:string
     avatar: string,
     message:string
     likesCount:number
 }
-export const Post:React.FC<PostType> = ({avatar, message, likesCount}) => {
+export const Post:React.FC<PostType> = ({id,avatar, message, likesCount}) => {
     return (
         <div className={c.item}>
             <div className={c.avatar}>

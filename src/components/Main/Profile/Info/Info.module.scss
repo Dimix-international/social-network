@@ -1,5 +1,5 @@
-
 .info {
+  margin-bottom: 20px;
   .row{
     display: flex;
     flex-wrap: wrap;
@@ -17,8 +17,19 @@
       object-fit: cover;
     }
   }
-  .body{
-    flex: 1 1 auto;
-    padding-left: 30px;
+}
+.body{
+  flex: 1 1 auto;
+  padding-left: 30px;
+  .name{
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 5px;
+  }
+  .content {
+    p {
+      font-size: 16px;
+      line-height: 120%;
+    }
   }
 }

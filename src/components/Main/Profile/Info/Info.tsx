@@ -9,14 +9,14 @@ export const Info = () => {
                         <img src="https://cdnimg.rg.ru/i/gallery/87d52c68/1_9894c58c.jpg" alt=""/>
                     </div>
                     <div className={c.body}>
-                        <div className={c.name}>
+                        <h3 className={c.name}>
                             Dima Melnikov
-                        </div>
+                        </h3>
                         <div className={c.content}>
-                            <div>Date of Birth: 26th of June</div>
-                            <div>City: Gomel</div>
-                            <div>Education: BELSUT</div>
-                            <div>Web Site: https://Google.by</div>
+                            <p>Date of Birth: 26th of June</p>
+                            <p>City: Gomel</p>
+                            <p>Education: BELSUT</p>
+                            <p>Web Site: https://Google.by</p>
                         </div>
                     </div>
                 </div>
