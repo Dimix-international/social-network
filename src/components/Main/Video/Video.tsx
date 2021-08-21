@@ -2,9 +2,6 @@ import React from "react";
 import c from './Video.module.scss'
 
 export const Video = () => {
-    function add(a:number,b:number) {
-        return a + b;
-    }
     return (
         <div className={c.music}>
             Video
