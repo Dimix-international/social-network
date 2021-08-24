@@ -22,9 +22,6 @@ export const Sidebar = () => {
                     <li>
                         <NavLink to="/video" className={s.link} activeClassName={s.active}>Video</NavLink>
                     </li>
-                    <li>
-                        <a href="#" className={classes.link}>Friends</a>
-                    </li>
                 </ul>
                 <NavLink to={'/settings'} className={`${s.link} ${s.setting}`} activeClassName={s.active}>
                     Settings
