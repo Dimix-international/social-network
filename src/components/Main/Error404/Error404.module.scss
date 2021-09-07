@@ -1,0 +1,18 @@
+.error {
+  position: fixed;
+  top:0;
+  left:0;
+  bottom: 0;
+  right: 0;
+  background: url("https://tproger.ru/s3/uploads/2015/04/hakimse404.jpg") 50% / cover no-repeat;
+  z-index: 1;
+}
+.title{
+  position: absolute;
+  top:20px;
+  left:50%;
+  z-index: 2;
+  color:red;
+  font-size: 36px;
+  transform: translate(-50%, 0px);
+}

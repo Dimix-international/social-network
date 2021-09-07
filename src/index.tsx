@@ -3,16 +3,22 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import {state} from "./Redux/state";
+import {store} from "./Redux/state";
+import {BrowserRouter} from "react-router-dom";
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App
-        state={state}
-    />
-  </React.StrictMode>,
-  document.getElementById('root')
-);
+
+let rerenderEntireTree = () => {
+    ReactDOM.render(
+        <BrowserRouter>
+            <App
+                store={store}
+            />
+        </BrowserRouter>, document.getElementById('root')
+    );
+}
+rerenderEntireTree(); //первая отрисовка
+store.subscribe(rerenderEntireTree); //при измененеие state вызываем функцию  rerenderEntireTree(функция подписчик)
+
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
