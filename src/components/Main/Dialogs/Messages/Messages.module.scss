@@ -1,3 +1,12 @@
 .messages {
   grid-column: 1/2;
+  display: grid;
+  grid-template: 1fr / 1fr 1fr;
+  column-gap: 15px;
+}
+.form {
+  grid-column: 2/3;
+}
+.btn {
+  justify-self: end;
 }

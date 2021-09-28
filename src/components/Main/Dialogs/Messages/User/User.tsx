@@ -6,16 +6,12 @@ type UserItemTypeProps = {
     id: string
     name: string
     avatar: string
-    text: string
-    time:string
 }
 export const User: React.FC<UserItemTypeProps> = (
     {
         id,
         name,
         avatar,
-        text,
-        time
     }) => {
     return (
         <NavLink to={`/dialogs/${id}`}>
@@ -29,11 +25,8 @@ export const User: React.FC<UserItemTypeProps> = (
                     <div className={c.user__name}>
                         {name}
                     </div>
-                    <div className={c.user__text}>
-                        {text}
-                    </div>
                 </div>
-                <div className={c.user__date}>{time}</div>
+                <div className={c.user__date}>01.01.2021</div>
             </div>
         </NavLink>
     )

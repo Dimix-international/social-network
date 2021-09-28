@@ -1,27 +1,33 @@
 import React, {ChangeEvent, useState} from "react";
 import c from './Form.module.scss';
+import {SuperButton} from "../../../../../UniversalComponents/SuperButton/SuperButton";
 
 type FormPropsType = {
-    newPost:string
-    addPost: () => void
-    changeTextForNewPost: (text:string) => void
+    newText:string
+    addCallback: () => void
+    changeText: (text:string) => void
+    placeHolderTextarea?: string
+    nameBtn:string
+    classBtn?:string
 }
 
 export const Form = (props:FormPropsType) => {
     const onChangeHandler = (e:ChangeEvent<HTMLTextAreaElement>) => {
-        props.changeTextForNewPost(e.currentTarget.value)
+        props.changeText(e.currentTarget.value)
     }
     const addPost  = () => {
-        props.addPost();
+        props.addCallback();
     }
+    const finalPlaceHolder = props.placeHolderTextarea ? props.placeHolderTextarea : '';
     return (
         <div className={c.form}>
             <textarea
-                value={props.newPost}
+                value={props.newText}
                 onChange={onChangeHandler}
+                placeholder={finalPlaceHolder}
             >
             </textarea>
-            <button onClick={addPost}>Add</button>
+            <SuperButton addClass={props.classBtn} name={props.nameBtn} callback={addPost} />
         </div>
     )
 }

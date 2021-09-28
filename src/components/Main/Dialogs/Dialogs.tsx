@@ -2,17 +2,16 @@ import React from "react";
 import c from'./Dialogs.module.scss'
 import {Messages} from "./Messages/Messages";
 import {AddFunction} from "./Messages/AddFunction/AddFunction";
-import {DialogPagePropsType} from "../../../Redux/state";
+import {ActionType, DialogPagePropsType} from "../../../Redux/store";
+import {MessagesContainer} from "./Messages/MessagesContainer";
+import {Store} from "redux";
+import {RootReducerType} from "../../../Redux/redux-store";
 
-export type DialogsPropsType = {
-    dialogsPage: DialogPagePropsType,
-}
-export const Dialogs: React.FC<DialogsPropsType> = ({dialogsPage}) => {
+
+export const Dialogs = () => {
     return (
         <div className={c.dialogs}>
-            <Messages
-                users={dialogsPage.users}
-            />
+            <MessagesContainer />
             <AddFunction />
         </div>
     )

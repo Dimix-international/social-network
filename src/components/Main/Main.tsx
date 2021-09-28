@@ -8,13 +8,13 @@ import {News} from "./News/News";
 import {Music} from "./Music/Music";
 import {Settings} from "./Settings/Settings";
 import {Video} from "./Video/Video";
-import {StoreType} from "../../Redux/state";
+import {StoreType} from "../../Redux/store";
 import {Error404} from "./Error404/Error404";
+import {RootReducerType} from "../../Redux/redux-store";
+import {Store} from "redux";
 
 
-type MainPropsType = {
-    store: StoreType
-}
+
 export const PATH = {
     PROFILE: '/profile',
     DIALOGS: '/dialogs',
@@ -23,11 +23,7 @@ export const PATH = {
     VIDEO: '/video',
     SETTINGS: '/settings',
 }
-export const Main: React.FC<MainPropsType> = (
-    {
-        store
-    }) => {
-    const state = store.getState(); //получаем state
+export const Main = () => {
     return (
             <main className={c.main}>
                 <Sidebar/>
@@ -35,11 +31,15 @@ export const Main: React.FC<MainPropsType> = (
                     <Switch> {/*выбирает первый подходящий роутер*/}
                         <Route path={PATH.PROFILE} render={() =>
                             <Profile
-                                profilePage={state.profilePage}
-                                dispatch={store.dispatch.bind(store)} //обязательно bind(store) !!! чтобы this не вызвался от другого имени
+                                /*profilePage={store.getState().profilePage}
+                                dispatch={store.dispatch.bind(store)} //обязательно bind(store) !!! чтобы this не вызвался от другого имени*/
                             />}
                         />
-                        <Route path={PATH.DIALOGS} render={() => <Dialogs dialogsPage={state.dialogsPage}/>}/>
+                        <Route path={PATH.DIALOGS} render={() =>
+                            <Dialogs
+                            /*dialogsPage={store.getState().dialogsPage}
+                            dispatch={store.dispatch.bind(store)}*/
+                        />}/>
                         <Route path={PATH.NEWS} render={() => <News/>}/>
                         <Route path={PATH.MUSIC} render={() => <Music/>}/>
                         <Route path={PATH.VIDEO} render={() => <Video/>}/>

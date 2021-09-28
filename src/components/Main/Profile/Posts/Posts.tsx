@@ -2,19 +2,20 @@ import React from "react";
 import c from './Posts.module.scss';
 import {Post} from "./Post/Post";
 import {Form} from "./Form/Form";
-import {ActionType, addPostAC, changeTextForNewPostAC, PostPropsType} from "../../../../Redux/state";
+import {PostsPropsType} from "./PostsContainer";
 
-type TypePosts = {
+/*type TypePosts = {
     posts: Array<PostPropsType>
-    newPost:string
-    dispatch:(action:ActionType) => void
-}
-export const Posts = (props: TypePosts) => {
-    const addNewPost = () => {
-        props.dispatch(addPostAC())
+    newPost: string
+    addPost: () => void
+    changeText: (m: string) => void
+}*/
+export const Posts = (props: PostsPropsType) => {
+    const onAddNewPost = () => {
+        props.addPost()
     }
-    const changeTextForNewPost = (m:string) => {
-        props.dispatch(changeTextForNewPostAC(m))
+    const onChangeTextForNewPost = (m: string) => {
+        props.changeText(m)
     }
     return (
         <div>
@@ -22,13 +23,14 @@ export const Posts = (props: TypePosts) => {
                 My posts
             </div>
             <Form
-                newPost={props.newPost}
-                addPost={addNewPost}
-                changeTextForNewPost={changeTextForNewPost}
+                newText={props.newPost}
+                addCallback={onAddNewPost}
+                changeText={onChangeTextForNewPost}
+                nameBtn={'Add'}
             />
             <div className={c.list}>
                 {
-                    props.posts.map (post => {
+                    props.posts.posts.map(post => {
                         return (
                             <Post
                                 key={post.id}
