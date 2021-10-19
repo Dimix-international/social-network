@@ -14,15 +14,16 @@ export const Sidebar = () => {
                         <NavLink to="/dialogs" className={s.link} activeClassName={s.active}>Messages</NavLink>
                     </li>
                     <li>
-                        <NavLink to="/news" className={s.link} activeClassName={s.active}>News</NavLink>
-                    </li>
-                    <li>
                         <NavLink to="/music" className={s.link} activeClassName={s.active}>Music</NavLink>
                     </li>
                     <li>
                         <NavLink to="/video" className={s.link} activeClassName={s.active}>Video</NavLink>
                     </li>
+                    <li>
+                        <NavLink to="/news" className={s.link} activeClassName={s.active}>News</NavLink>
+                    </li>
                 </ul>
+                <NavLink to={"/users"} className={`${s.link} ${s.users}`} activeClassName={s.active}> Find friends</NavLink>
                 <NavLink to={'/settings'} className={`${s.link} ${s.setting}`} activeClassName={s.active}>
                     Settings
                 </NavLink>

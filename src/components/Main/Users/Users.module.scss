@@ -1,0 +1,13 @@
+.users {
+  display: grid;
+  grid-template: 1fr / 1fr;
+  row-gap: 20px;
+}
+.container {
+  display: grid;
+  grid-template: 1fr / 1fr minmax(200px, 300px);
+  column-gap: 15px;
+}
+.center {
+  margin: 0 auto;
+}

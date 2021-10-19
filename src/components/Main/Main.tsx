@@ -3,15 +3,13 @@ import c from './Main.module.scss'
 import {Sidebar} from "./Sidebar/Sidebar";
 import {Profile} from "./Profile/Profile";
 import {Dialogs} from "./Dialogs/Dialogs";
-import {BrowserRouter, Redirect, Route, Switch} from "react-router-dom";
+import {Redirect, Route, Switch} from "react-router-dom";
 import {News} from "./News/News";
 import {Music} from "./Music/Music";
 import {Settings} from "./Settings/Settings";
 import {Video} from "./Video/Video";
-import {StoreType} from "../../Redux/store";
 import {Error404} from "./Error404/Error404";
-import {RootReducerType} from "../../Redux/redux-store";
-import {Store} from "redux";
+import UsersContainer from "./Users/UsersContainer";
 
 
 
@@ -21,6 +19,7 @@ export const PATH = {
     NEWS: '/news',
     MUSIC: '/music',
     VIDEO: '/video',
+    USERS: '/users',
     SETTINGS: '/settings',
 }
 export const Main = () => {
@@ -43,9 +42,11 @@ export const Main = () => {
                         <Route path={PATH.NEWS} render={() => <News/>}/>
                         <Route path={PATH.MUSIC} render={() => <Music/>}/>
                         <Route path={PATH.VIDEO} render={() => <Video/>}/>
+                        <Route path={PATH.VIDEO} render={() => <Video/>}/>
                         <Route path={PATH.SETTINGS} render={() => <Settings/>}/>
+                        <Route path={PATH.USERS} render={()=> <UsersContainer/>}/>
                         <Route path={'/'} exact render={() => <Redirect to={PATH.PROFILE}/>}/>
-                        <Route path={'*'} render={() => <Error404 />}></Route>
+                        <Route path={'*'} render={() => <Error404 />}> </Route>
                     </Switch>
                 </div>
             </main>

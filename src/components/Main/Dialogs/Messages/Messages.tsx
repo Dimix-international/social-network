@@ -25,6 +25,7 @@ export const Messages = (props: MessagesPropsType) => {
                         props.dialogs.users.map(user => {
                             return (
                                 <User
+                                    trigger={'dialogs'}
                                     key={user.id}
                                     id={user.id}
                                     name={user.name}

@@ -1,9 +1,10 @@
 .user {
   display: grid;
-  grid-template: 1fr / 50px 1fr 70px;
+  grid-template: 1fr / 50px 1fr auto;
   column-gap: 15px;
   padding: 10px 0 ;
-  height: 80px;
+  min-height: 72px;
+  max-height: 80px;
   overflow: hidden;
   cursor: pointer;
   border-bottom: 2px solid rgba(56,72,255,0.7);
@@ -35,5 +36,13 @@
   &__date{
     text-align: right;
     color: rgba(113, 112, 112, 0.7);
+  }
+}
+.followed {
+  font-size: 36px;
+  color:rgba(113, 112, 112, 0.5);
+  background-color: transparent;
+  &__active {
+    color:green;
   }
 }

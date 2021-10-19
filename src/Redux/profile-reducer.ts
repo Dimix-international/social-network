@@ -62,7 +62,7 @@ export const profileReducer = (state:InitialProfileStateType = initialState, act
                 likesCount: 0
             }
             return {
-                ...state, posts: [...state.posts, newPost], textForNewPost: state.textForNewPost = ''
+                ...state, posts: [...state.posts, newPost], textForNewPost: ''
             }
         case "CHANGE-TEXT-FOR-NEW-POST":
             return {...state, textForNewPost: action.message}

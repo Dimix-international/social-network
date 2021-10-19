@@ -3,7 +3,7 @@ import classes from './Footer.module.scss'
 export const Footer = () => {
     return (
         <footer className={classes.footer}>
-            <p className={classes.item}>Текс для проверки модулей</p>
+            <p className={classes.item}>footer</p>
         </footer>
     )
 }

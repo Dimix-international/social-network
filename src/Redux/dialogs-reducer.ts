@@ -17,7 +17,7 @@ export type DialogPagePropsType = {
     messages: Array<MessagesType>
     newMessageBody: string
 }
-const initialState:DialogPagePropsType = {
+const initialState: DialogPagePropsType = {
     users: [
         {
             id: '1',
@@ -62,26 +62,26 @@ const initialState:DialogPagePropsType = {
 }
 
 type ActionType = UpdateNewMessageBodyType | SendMessageType
-export const dialogsReducer = (state:DialogPagePropsType = initialState, action: ActionType):DialogPagePropsType => {
-    switch(action.type) {
+export const dialogsReducer = (state: DialogPagePropsType = initialState, action: ActionType): DialogPagePropsType => {
+    switch (action.type) {
         case "UPDATE-NEW-MESSAGE-BODY":
-            return {...state, newMessageBody: state.newMessageBody = action.message}
+            return {...state, newMessageBody: action.message}
         case "SEND-MESSAGE":
-            const newMessage:MessagesType = {
-                id:v1(),
+            const newMessage: MessagesType = {
+                id: v1(),
                 text: state.newMessageBody
             }
-            return {...state, messages: [...state.messages, newMessage], newMessageBody: state.newMessageBody = ''}
+            return {...state, messages: [...state.messages, newMessage], newMessageBody: ''}
         default:
             return state
     }
 }
 export type UpdateNewMessageBodyType = ReturnType<typeof updateNewMessageBodyAC>
-export const updateNewMessageBodyAC = (message:string) => {
+export const updateNewMessageBodyAC = (message: string) => {
     return {
         type: UPDATE_NEW_MESSAGE_BODY,
         message
-    }as const
+    } as const
 }
 export type SendMessageType = ReturnType<typeof sendMessageAC>
 export const sendMessageAC = () => ({type: SEND_MESSAGE} as const)
