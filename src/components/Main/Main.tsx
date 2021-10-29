@@ -12,7 +12,6 @@ import {Error404} from "./Error404/Error404";
 import UsersContainer from "./Users/UsersContainer";
 
 
-
 export const PATH = {
     PROFILE: '/profile',
     DIALOGS: '/dialogs',
@@ -24,31 +23,32 @@ export const PATH = {
 }
 export const Main = () => {
     return (
-            <main className={c.main}>
-                <Sidebar/>
-                <div className={c.main__content}>
-                    <Switch> {/*выбирает первый подходящий роутер*/}
-                        <Route path={PATH.PROFILE} render={() =>
-                            <Profile
-                                /*profilePage={store.getState().profilePage}
-                                dispatch={store.dispatch.bind(store)} //обязательно bind(store) !!! чтобы this не вызвался от другого имени*/
-                            />}
-                        />
-                        <Route path={PATH.DIALOGS} render={() =>
-                            <Dialogs
+        <main className={c.main}>
+            <Sidebar/>
+            <div className={c.main__content}>
+                <Switch> {/*выбирает первый подходящий роутер*/}
+                    <Route path={PATH.PROFILE} render={() =>
+                        <Profile
+                            /*profilePage={store.getState().profilePage}
+                            dispatch={store.dispatch.bind(store)} //обязательно bind(store) !!! чтобы this не вызвался от другого имени*/
+                        />}
+                    />
+                    <Route path={PATH.DIALOGS} render={() =>
+                        <Dialogs
                             /*dialogsPage={store.getState().dialogsPage}
                             dispatch={store.dispatch.bind(store)}*/
                         />}/>
-                        <Route path={PATH.NEWS} render={() => <News/>}/>
-                        <Route path={PATH.MUSIC} render={() => <Music/>}/>
-                        <Route path={PATH.VIDEO} render={() => <Video/>}/>
-                        <Route path={PATH.VIDEO} render={() => <Video/>}/>
-                        <Route path={PATH.SETTINGS} render={() => <Settings/>}/>
-                        <Route path={PATH.USERS} render={()=> <UsersContainer/>}/>
-                        <Route path={'/'} exact render={() => <Redirect to={PATH.PROFILE}/>}/>
-                        <Route path={'*'} render={() => <Error404 />}> </Route>
-                    </Switch>
-                </div>
-            </main>
+                    <Route path={PATH.NEWS} render={() => <News/>}/>
+                    <Route path={PATH.MUSIC} render={() => <Music/>}/>
+                    <Route path={PATH.VIDEO} render={() => <Video/>}/>
+                    <Route path={PATH.VIDEO} render={() => <Video/>}/>
+                    <Route path={PATH.SETTINGS} render={() => <Settings/>}/>
+                    <Route path={PATH.USERS} render={() => <UsersContainer/>}/>
+                    <Route path={'/'} exact
+                           render={() => <Redirect to={PATH.PROFILE}/>}/>
+                    <Route path={'*'} render={() => <Error404/>}> </Route>
+                </Switch>
+            </div>
+        </main>
     )
 }

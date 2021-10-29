@@ -1,10 +1,10 @@
 .user {
   display: grid;
-  grid-template: 1fr / 50px 1fr auto;
+  grid-template: 1fr / 50px 1fr 100px;
   column-gap: 15px;
   padding: 10px 0 ;
   min-height: 72px;
-  max-height: 80px;
+  max-height: 85px;
   overflow: hidden;
   cursor: pointer;
   border-bottom: 2px solid rgba(56,72,255,0.7);
@@ -45,4 +45,7 @@
   &__active {
     color:green;
   }
+}
+.user__status{
+  word-break:break-all;
 }

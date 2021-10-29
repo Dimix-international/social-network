@@ -1,7 +1,7 @@
 import React from "react";
 // import c from "./Users.module.scss";
 // import {User} from "../Dialogs/Messages/User/User";
-// import {SuperButton} from "../../../UniversalComponents/SuperButton/SuperButton";
+// import {SuperLoading} from "../../../UniversalComponents/SuperLoading/SuperLoading";
 // import {AddFunction} from "../Dialogs/Messages/AddFunction/AddFunction";
 // import {UsersFindPropsType} from "./UsersContainer";
 // import {v1} from "uuid";
@@ -103,7 +103,7 @@ import React from "react";
 //                         )
 //                     })}
 //                 </div>
-//                 <SuperButton
+//                 <SuperLoading
 //                     name={'show more'}
 //                     callback={showMoreUsers}
 //                     addClass={c.center}
