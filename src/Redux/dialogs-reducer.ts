@@ -61,8 +61,9 @@ const initialState: DialogPagePropsType = {
     newMessageBody: '',
 }
 
-type ActionType = UpdateNewMessageBodyType | SendMessageType
-export const dialogsReducer = (state: DialogPagePropsType = initialState, action: ActionType): DialogPagePropsType => {
+export type DialogsActionType = UpdateNewMessageBodyType | SendMessageType;
+
+export const dialogsReducer = (state: DialogPagePropsType = initialState, action: DialogsActionType): DialogPagePropsType => {
     switch (action.type) {
         case "UPDATE-NEW-MESSAGE-BODY":
             return {...state, newMessageBody: action.message}

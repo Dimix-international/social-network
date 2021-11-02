@@ -5,9 +5,11 @@
     flex-wrap: wrap;
   }
   .avatar{
-    flex: 0 0 100px;
-    height: 100px;
+    flex: 0 0 150px;
+    height: 150px;
     position: relative;
+    border-radius: 3px;
+    overflow: hidden;
     img{
       position: absolute;
       left: 0;
@@ -27,9 +29,41 @@
     margin-bottom: 5px;
   }
   .content {
+    display: flex;
+    flex-direction: column;
+    row-gap: 5px;
+    font-size: 18px;
     p {
-      font-size: 16px;
+      font-size: 18px;
       line-height: 120%;
     }
   }
+}
+
+.looking__true {
+  font-size: 24px;
+  margin-left: 5px;
+  color:blue;
+  font-weight: 700;
+}
+.looking__false {
+  font-size: 24px;
+  margin-left: 5px;
+  color: red;
+  font-weight: 700;
+}
+
+.links {
+  display: flex;
+  column-gap: 5px;
+
+  a{
+    font-size: 16px;
+  }
+}
+
+.contacts{
+  display: flex;
+  flex-direction: column;
+  row-gap: 5px;
 }

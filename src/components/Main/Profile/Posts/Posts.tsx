@@ -2,20 +2,14 @@ import React from "react";
 import c from './Posts.module.scss';
 import {Post} from "./Post/Post";
 import {Form} from "./Form/Form";
-import {PostsPropsType} from "./PostsContainer";
+import {ProfilePageType} from "./PostsContainer";
 
-/*type TypePosts = {
-    posts: Array<PostPropsType>
-    newPost: string
-    addPost: () => void
-    changeText: (m: string) => void
-}*/
-export const Posts = (props: PostsPropsType) => {
+export const Posts = (props: ProfilePageType) => {
     const onAddNewPost = () => {
-        props.addPost()
+        props.addPostAC()
     }
     const onChangeTextForNewPost = (m: string) => {
-        props.changeText(m)
+        props.changeTextForNewPostAC(m)
     }
     return (
         <div>
@@ -30,7 +24,7 @@ export const Posts = (props: PostsPropsType) => {
             />
             <div className={c.list}>
                 {
-                    props.posts.posts.map(post => {
+                    props.posts.map(post => {
                         return (
                             <Post
                                 key={post.id}

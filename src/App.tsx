@@ -1,14 +1,14 @@
 import React from 'react';
 import './App.scss';
-import {Header} from "./components/Header/Header";
 import {Main} from "./components/Main/Main";
 import {Footer} from "./components/Footer/Footer";
+import HeaderContainer from "./components/Header/HeaderContainer";
 
 
 const App = () => {
     return (
         <div className="wrapper">
-            <Header/>
+            <HeaderContainer />
             <Main/>
             <Footer/>
         </div>

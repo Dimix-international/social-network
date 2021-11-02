@@ -1,6 +1,9 @@
 import React from "react";
 import c from './User.module.scss'
 import {NavLink} from "react-router-dom";
+import {followApi} from "../../../../../api/users-api";
+import {RequestStatusType} from "../../../../../app/app-reducer";
+
 
 type UserItemTypeProps = {
     trigger: string,
@@ -10,10 +13,16 @@ type UserItemTypeProps = {
     country?: string
     city?: string
     status?: string
-    followed?: boolean,
+    isFollowed?: boolean,
     addClass?: string
-    toggleFollowACForFindUsers?: (userId: string) => void
+    toggleFollowACForFindUsers?: (userId: string) => void,
+    statusLoading?: RequestStatusType,
+    setStatusLoading?: (status: RequestStatusType) => void
+    followingInProgress?: Array<string>
+    followingUser?: (id: string, isFetching: boolean,) => void
 }
+
+
 export const User: React.FC<UserItemTypeProps> = (
     {
         trigger,
@@ -23,20 +32,24 @@ export const User: React.FC<UserItemTypeProps> = (
         country,
         city,
         status,
-        followed,
+        isFollowed,
         addClass,
-        toggleFollowACForFindUsers,
+        followingInProgress,
+        followingUser,
     }) => {
     //---case users---
-    const addClassBtnFollowed = followed
+    const addClassBtnFollowed = isFollowed
         ? `${c.followed} ${c.followed__active}`
         : c.followed;
 
     const onButtonFollowClickHandler = () => {
-        toggleFollowACForFindUsers && toggleFollowACForFindUsers(id);
+        if (!isFollowed) {
+            followingUser && followingUser(id, true)
+        } else {
+            followingUser && followingUser(id, false)
+        }
     }
     //---------
-
     switch (trigger) {
         case 'dialogs':
             return (
@@ -58,24 +71,30 @@ export const User: React.FC<UserItemTypeProps> = (
                     </div>
                 </NavLink>
             )
-
         case 'users':
             return (
                 <div className={c.user}>
-                    <div className={c.user__avatar}>
-                        <img
-                            src={avatar}
-                            alt="avatar"/>
-                    </div>
+                    <NavLink
+                        to={`/profile/${id}`}>
+                        <div className={c.user__avatar}>
+                            <img
+                                src={avatar}
+                                alt="avatar"/>
+                        </div>
+                    </NavLink>
                     <div className={c.user__body}>
-                        <div className={c.user__name}>
-                            {name}, {country}
-                        </div>
-                        <div className={c.user__status}>
-                            {status} {followed}
-                        </div>
+                        <NavLink className={c.user__info}
+                            to={`/profile/${id}`}>
+                            <div className={c.user__name}>
+                                {name}, {country}
+                            </div>
+                            <div className={c.user__status}>
+                                {status} {isFollowed}
+                            </div>
+                        </NavLink>
                     </div>
                     <button
+                        disabled={followingInProgress && followingInProgress.some(elId => elId === id)}
                         className={addClassBtnFollowed}
                         onClick={onButtonFollowClickHandler}
                     >

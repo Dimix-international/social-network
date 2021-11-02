@@ -1,25 +1,59 @@
 import React from "react";
 import c from './Info.module.scss';
+import defaultImage from '../../../../assets/images/smile.png'
+import {GetProfileResponseType} from "../../../../api/users-api";
 
-export const Info = () => {
-    return (
+type InfoPropsType = {
+    info: GetProfileResponseType
+}
+
+export const Info: React.FC<InfoPropsType> = React.memo((props) => {
+        const {info} = props;
+
+        const linkContacts = (link: string | null) => link ? link : undefined;
+
+        const finallyAvatar = info.photos.small ? info.photos.small : defaultImage;
+
+        return (
             <div className={c.info}>
                 <div className={c.row}>
                     <div className={c.avatar}>
-                        <img src="https://cdnimg.rg.ru/i/gallery/87d52c68/1_9894c58c.jpg" alt=""/>
+                        <img
+                            src={finallyAvatar}
+                            alt="avatar"/>
                     </div>
                     <div className={c.body}>
                         <h3 className={c.name}>
-                            Dima Melnikov
+                            {info.fullName}
                         </h3>
                         <div className={c.content}>
-                            <p>Date of Birth: 26th of June</p>
-                            <p>City: Gomel</p>
-                            <p>Education: BELSUT</p>
-                            <p>Web Site: https://Google.by</p>
+                            <p>About
+                                me: {info.aboutMe ? info.aboutMe : 'Расскажу потом'}</p>
+                            <p>Looking for a job:
+                                {
+                                    info.lookingForAJob
+                                        ? <span className={c.looking__true}>&#10003;</span>
+                                        : <span className={c.looking__false}>x</span>
+                                }
+                            </p>
+                            <p>
+                                <a href={linkContacts(info.contacts.website)}>
+                                    {info.contacts.website ? `${info.contacts.website}` : 'Web Site: https://Google.by'}
+                                </a>
+                            </p>
+                            <div className={c.contacts}>
+                                <h3>Contacts:</h3>
+                                <div className={c.links}>
+                                    <a href={linkContacts(info.contacts.facebook)}>facebook</a>
+                                    <a href={linkContacts(info.contacts.vk)}>vk</a>
+                                    <a href={linkContacts(info.contacts.twitter)}>twitter</a>
+                                    <a href={linkContacts(info.contacts.instagram)}>instagram</a>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-    )
-}
+        )
+    }
+)

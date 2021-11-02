@@ -1,8 +1,14 @@
+import {AppThunkType} from "./redux-store";
+import {followApi, usersApi} from "../api/users-api";
+import {transformResponseUsers} from "../helper/transformUsers";
+import {setStatusAppAC} from "../app/app-reducer";
+
 const TOGGLE_FOLLOW_USERS = "TOGGLE_FOLLOW_USER";
 const SET_USERS = "SET_USERS";
 const SET_CURRENT_PAGE = "SET_CURRENT_PAGE";
 const SET_USERS_COUNT = "SET_USERS_COUNT";
 const TOGGLE_IS_FETCHING = "TOGGLE_IS_FETCHING";
+const FOLLOWING_IN_PROGRESS = 'FOLLOWING_IN_PROGRESS';
 
 export type UsersType = {
     id: string,
@@ -19,16 +25,18 @@ const initialState = {
     pageSize: 100,
     totalUserCount: 22,
     currentPage: 3,
-    isFetching: false
+    isFetching: false,
+    followingInProgress: [] as Array<string>,
 }
 export type UsersFindPageStateType = typeof initialState
 
-type UsersActionType =
+export type UsersActionType =
     | ReturnType<typeof toggleFollowAC>
     | ReturnType<typeof setUsersAC>
-    | ReturnType<typeof setCurrentPage>
-    | ReturnType<typeof setUsersCount>
-    | ReturnType<typeof toggleIsFetching>
+    | ReturnType<typeof setCurrentPageAC>
+    | ReturnType<typeof setUsersCountAC>
+    | ReturnType<typeof toggleIsFetchingAC>
+    | ReturnType<typeof toggleFollowingInProgressAC>
 
 
 export const usersReducer = (state: UsersFindPageStateType = initialState, action: UsersActionType): UsersFindPageStateType => {
@@ -61,10 +69,27 @@ export const usersReducer = (state: UsersFindPageStateType = initialState, actio
                 ...state,
                 isFetching: action.isFetching
             }
+        case "FOLLOWING_IN_PROGRESS": {
+            return {
+                ...state,
+                followingInProgress:
+                    action.isFetching
+                        ? [...state.followingInProgress, action.id] //если id нету - добавляем в массив - подписка
+                        : state.followingInProgress.filter(el => el === action.id) //удаляем если есть id - отписка
+            }
+        }
         default:
             return state
     }
 }
+export const toggleFollowingInProgressAC = (id: string, isFetching: boolean) => {
+    return {
+        type: FOLLOWING_IN_PROGRESS,
+        id,
+        isFetching,
+    } as const
+}
+
 
 export const toggleFollowAC = (userId: string) => {
     return {
@@ -72,6 +97,28 @@ export const toggleFollowAC = (userId: string) => {
         userId,
     } as const
 }
+
+export const setCurrentPageAC = (currentPage: number) => {
+    return {
+        type: SET_CURRENT_PAGE,
+        currentPage,
+    } as const
+}
+
+export const setUsersCountAC = (totalUserCount: number) => {
+    return {
+        type: SET_USERS_COUNT,
+        totalUserCount,
+    } as const
+}
+
+export const toggleIsFetchingAC = (isFetching: boolean) => {
+    return {
+        type: TOGGLE_IS_FETCHING,
+        isFetching,
+    } as const
+}
+
 export const setUsersAC = (users: Array<UsersType>) => {
     return {
         type: SET_USERS,
@@ -79,24 +126,44 @@ export const setUsersAC = (users: Array<UsersType>) => {
     } as const
 }
 
-export const setCurrentPage = (currentPage: number) => {
-    return {
-        type: SET_CURRENT_PAGE,
-        currentPage,
-    } as const
+export const getUsers = (currentPage: number, pageSize: number): AppThunkType => async dispatch => {
+
+    dispatch(toggleIsFetchingAC(true));
+
+    try {
+        const response = await usersApi.getUsers(currentPage, pageSize);
+        dispatch(setUsersCountAC(response.totalCount));
+        const transformData = transformResponseUsers(response.items);
+        dispatch(setUsersAC(transformData));
+        dispatch(setCurrentPageAC(currentPage));
+        dispatch(toggleIsFetchingAC(false));
+    } catch (e) {
+        dispatch(toggleIsFetchingAC(false));
+        console.warn(e)
+    }
+
 }
 
-export const setUsersCount = (totalUserCount: number) => {
-    return {
-        type: SET_USERS_COUNT,
-        totalUserCount,
-    } as const
-}
+export const followingUser = (id:string, isFetching:boolean,): AppThunkType => async dispatch => {
 
-export const toggleIsFetching = (isFetching: boolean) => {
-    return {
-        type: TOGGLE_IS_FETCHING,
-        isFetching,
-    } as const
-}
+    dispatch(setStatusAppAC('loading'));
 
+    try {
+        let response;
+
+        if(!isFetching) {
+            response = await followApi.deleteFollow(id);//удаляем из друзей
+        } else{
+            response = await followApi.postFollow(id);//добавляем в друзья
+        }
+
+        if(response.data.resultCode === 0) {
+            dispatch(toggleFollowingInProgressAC(id,isFetching));//чтобы disable только одна кнопка
+            dispatch(toggleFollowAC(id)); //добавляем/удаляем из друзей
+            dispatch(setStatusAppAC('succeeded'));
+        }
+    } catch (e) {
+        console.warn(e);
+        dispatch(setStatusAppAC('failed'));
+    }
+}

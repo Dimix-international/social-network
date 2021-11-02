@@ -23,13 +23,16 @@
       object-fit: cover;
     }
   }
+  &__info {
+    color:#000;
+  }
   &__name{
-    font-size: 16px;
+    font-size: 20px;
     font-weight: 700;
     margin-bottom: 10px;
   }
   &__text{
-    font-size: 14px;
+    font-size: 18px;
     line-height: 140%;
     padding-bottom: 5px;
   }
@@ -39,13 +42,16 @@
   }
 }
 .followed {
-  font-size: 36px;
+  font-size: 42px;
   color:rgba(113, 112, 112, 0.5);
   background-color: transparent;
+  width: 100%;
+  height: 100%;
   &__active {
     color:green;
   }
 }
+
 .user__status{
   word-break:break-all;
 }

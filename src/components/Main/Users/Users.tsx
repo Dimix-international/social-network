@@ -1,21 +1,14 @@
 import React from "react";
 import c from "./Users.module.scss";
 import {User} from "../Dialogs/Messages/User/User";
-import {SuperButton} from "../../../UniversalComponents/SuperButton/SuperButton";
 import {AddFunction} from "../Dialogs/Messages/AddFunction/AddFunction";
-import {FormatUserType} from "./UsersContainer";
+import {UsersFindPropsType} from "./UsersContainer";
 
 
-
-type UsersType = {
-    users: Array<FormatUserType>
-    totalUserCount:number,
-    pageSize:number,
-    currentPage:number,
-    setCurrentPage:(pageNumber:number) => void,
-    toggleFollowAC:(userId:string) => void,
-    showMoreUsers:() => void
+type UsersType = UsersFindPropsType & {
+    setCurrentPage:(pageNumber:number) => void
 }
+
 
 export const Users: React.FC<UsersType> = (props) => {
     const {
@@ -24,8 +17,9 @@ export const Users: React.FC<UsersType> = (props) => {
         pageSize,
         currentPage,
         setCurrentPage,
-        toggleFollowAC,
-        showMoreUsers,
+        status,
+        followingInProgress,
+        followingUser
     } = props;
 
 
@@ -66,18 +60,13 @@ export const Users: React.FC<UsersType> = (props) => {
                                 name={u.name}
                                 avatar={u.avatar}
                                 status={u.status}
-                                followed={u.followed}
+                                isFollowed={u.followed}
                                 country={u.country}
-                                toggleFollowACForFindUsers={toggleFollowAC}
+                                followingUser={followingUser}
                             />
                         )
                     })}
                 </div>
-                <SuperButton
-                    name={'show more'}
-                    callback={showMoreUsers}
-                    addClass={c.center}
-                />
             </div>
             <AddFunction/>
         </div>

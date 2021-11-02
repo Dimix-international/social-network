@@ -3,26 +3,37 @@ import c from './Messages.module.scss'
 import {User} from "./User/User";
 import {ListMessages} from "./User/ListMessages/ListMessages";
 import {Form} from "../../Profile/Posts/Form/Form";
-import {MessagesPropsType} from "./MessagesContainer";
+import {MessagesContainerPropsType} from "./MessagesContainer";
+import {Redirect} from "react-router-dom";
 
-/*type MessagesPropsType = {
-    dialogs: DialogPagePropsType
-    addMessage:() => void
-    changeTextForNewMessage:(text:string) => void
-}*/
-export const Messages = (props: MessagesPropsType) => {
+
+export const Messages = React.memo((props: MessagesContainerPropsType) => {
+
+    const {
+        dialogs,
+        isAuth,
+        status,
+        sendMessageAC,
+        updateNewMessageBodyAC
+    } = props;
+
     const addNewMessage = () => {
-        props.addMessage();
+        sendMessageAC();
     }
     const changeTextForNewMessage = (message: string) => {
-        props.changeTextForNewMessage(message)
+        updateNewMessageBodyAC(message);
     }
+
+    if(!isAuth) {
+        return <Redirect to={'/login'} />
+    }
+
     return (
         <div>
             <div className={c.messages}>
                 <div>
                     {
-                        props.dialogs.users.map(user => {
+                        dialogs.users.map(user => {
                             return (
                                 <User
                                     trigger={'dialogs'}
@@ -61,4 +72,4 @@ export const Messages = (props: MessagesPropsType) => {
             </div>
         </div>
     )
-}
+})

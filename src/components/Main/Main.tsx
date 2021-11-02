@@ -1,7 +1,6 @@
 import React from 'react';
 import c from './Main.module.scss'
 import {Sidebar} from "./Sidebar/Sidebar";
-import {Profile} from "./Profile/Profile";
 import {Dialogs} from "./Dialogs/Dialogs";
 import {Redirect, Route, Switch} from "react-router-dom";
 import {News} from "./News/News";
@@ -10,9 +9,12 @@ import {Settings} from "./Settings/Settings";
 import {Video} from "./Video/Video";
 import {Error404} from "./Error404/Error404";
 import UsersContainer from "./Users/UsersContainer";
+import ProfileContainer from "./Profile/ProfileContainer";
+import {Login} from "../Login/Login";
 
 
 export const PATH = {
+    LOGIN: '/login',
     PROFILE: '/profile',
     DIALOGS: '/dialogs',
     NEWS: '/news',
@@ -27,8 +29,11 @@ export const Main = () => {
             <Sidebar/>
             <div className={c.main__content}>
                 <Switch> {/*выбирает первый подходящий роутер*/}
-                    <Route path={PATH.PROFILE} render={() =>
-                        <Profile
+                    <Route path={PATH.LOGIN} render={() => <Login/>}/>
+                    <Route path={PATH.PROFILE + '/:userId?'} render={() =>
+                        //:userId? - говорим что в url есть параметр -появится в params
+                        //userId? - параметр не обязателен
+                        <ProfileContainer
                             /*profilePage={store.getState().profilePage}
                             dispatch={store.dispatch.bind(store)} //обязательно bind(store) !!! чтобы this не вызвался от другого имени*/
                         />}

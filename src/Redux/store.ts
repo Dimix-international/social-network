@@ -11,6 +11,7 @@ export type MessagesType = {
     id: string,
     text: string,
 }
+/*
 export type PostPropsType = {
     id: string
     avatar: string,
@@ -122,4 +123,4 @@ export const store: StoreType = {
         this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action);
         this._onChange();
     }
-}
+}*/

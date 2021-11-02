@@ -1,9 +1,13 @@
 import React from "react";
-import {addPostAC, changeTextForNewPostAC, InitialProfileStateType} from "../../../../Redux/profile-reducer";
+import {
+    addPostAC,
+    changeTextForNewPostAC,
+    InitialProfileStateType
+} from "../../../../Redux/profile-reducer";
 import {Posts} from "./Posts";
 import {Dispatch, Store} from "redux";
 import {RootReducerType} from "../../../../Redux/redux-store";
-import {connect} from "react-redux";
+import {connect, ConnectedProps} from "react-redux";
 
 
 /*
@@ -40,16 +44,27 @@ export const PostsContainer = () => {
         </StoreContext.Consumer>
     )
 }*/
-type MapStateToProps = {
-    posts:InitialProfileStateType
-    newPost: string
-}
-let mapStateToProps = (state:RootReducerType):MapStateToProps => {
+
+let mapStateToProps = ({
+                           profilePage: {
+                               posts,
+                               textForNewPost
+                           }
+                       }: RootReducerType) => {
     return {
-        posts: state.profilePage,
-        newPost:state.profilePage.textForNewPost
+        posts,
+        newPost: textForNewPost
     }
 }
+const PostsContainer = connect(mapStateToProps, {
+    addPostAC,
+    changeTextForNewPostAC,
+});
+export type ProfilePageType = ConnectedProps<typeof PostsContainer>;
+export default PostsContainer(Posts);
+
+
+/*
 type MapDispatchPropsType = {
     addPost:()=> void
     changeText:(text:string) => void
@@ -65,4 +80,4 @@ let mapDispatchToProps = (dispatch: Dispatch):MapDispatchPropsType => {
     }
 }
 export type PostsPropsType = MapStateToProps & MapDispatchPropsType;
-export const PostsContainer = connect(mapStateToProps, mapDispatchToProps)(Posts)
+export const PostsContainer = connect(mapStateToProps, mapDispatchToProps)(Posts)*/
