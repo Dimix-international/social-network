@@ -34,16 +34,16 @@ export const authReducer = (state: AuthStateType = initialAuthState, action: Aut
 type SetUsersAuthType = {
     type: "SET_AUTH_USERS",
     payload: {
-        userId: string,
+        id: string,
         login: string,
         email: string,
         avatar: string | null
     }
 }
-export const setUserAuthAC = (userId: string, email: string, login: string, avatar: string | null): SetUsersAuthType => {
+export const setUserAuthAC = (id: string, email: string, login: string, avatar: string | null): SetUsersAuthType => {
     return {
         type: 'SET_AUTH_USERS',
-        payload: {userId, login, email, avatar},
+        payload: {id, login, email, avatar},
     }
 }
 

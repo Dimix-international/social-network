@@ -8,7 +8,6 @@ import {SuperLoading} from "../../../UniversalComponents/Loading/SuperLoading";
 
 
 export const Profile: React.FC<ProfileUserPropsType> = React.memo((props) => {
-
         const {profile, status} = props;
 
 

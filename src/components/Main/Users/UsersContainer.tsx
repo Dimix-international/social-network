@@ -5,19 +5,19 @@ import {
     UsersFindPageStateType,
 } from "../../../Redux/users-reducer";
 import {RootReducerType} from "../../../Redux/redux-store";
-import React from "react";
+import React, {Component, ComponentType} from "react";
 import {Users} from "./Users";
 import {SuperLoading} from "../../../UniversalComponents/Loading/SuperLoading";
 import {AppInitialStateType} from "../../../app/app-reducer";
-
-
-
+import {withAuthRedirect} from "../../../hoc/withAuthRedirect";
+import {compose} from "redux";
 
 
 class UsersAPIComponent extends React.Component<UsersFindPropsType> {
     componentDidMount() {
         this.props.getUsers(this.props.currentPage, this.props.pageSize)
     }
+
     setCurrentPage = (pageNumber: number) => {
         this.props.getUsers(pageNumber, this.props.pageSize)
     }
@@ -61,12 +61,17 @@ const MapStateToProps = (
         followingInProgress
     }
 }
+
+
 const UsersContainer = connect(MapStateToProps, {
     getUsers,
     followingUser,
 });
+
+
 export type UsersFindPropsType = ConnectedProps<typeof UsersContainer>
-//export default UsersContainer(UsersFunComp)
 export default UsersContainer(UsersAPIComponent)
 
+//защита через запись compose
+//export default compose<ComponentType>(UsersContainer,withAuthRedirect )(UsersAPIComponent)
 

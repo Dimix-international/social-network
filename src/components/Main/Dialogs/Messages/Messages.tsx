@@ -4,15 +4,12 @@ import {User} from "./User/User";
 import {ListMessages} from "./User/ListMessages/ListMessages";
 import {Form} from "../../Profile/Posts/Form/Form";
 import {MessagesContainerPropsType} from "./MessagesContainer";
-import {Redirect} from "react-router-dom";
 
 
 export const Messages = React.memo((props: MessagesContainerPropsType) => {
 
     const {
         dialogs,
-        isAuth,
-        status,
         sendMessageAC,
         updateNewMessageBodyAC
     } = props;
@@ -22,10 +19,6 @@ export const Messages = React.memo((props: MessagesContainerPropsType) => {
     }
     const changeTextForNewMessage = (message: string) => {
         updateNewMessageBodyAC(message);
-    }
-
-    if(!isAuth) {
-        return <Redirect to={'/login'} />
     }
 
     return (
