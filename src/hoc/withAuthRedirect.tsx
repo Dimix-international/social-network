@@ -1,5 +1,5 @@
 import React, {ComponentType} from "react";
-import {Redirect} from "react-router-dom";
+import {Navigate} from "react-router-dom";
 import {RootReducerType} from "../Redux/redux-store";
 import {connect} from "react-redux";
 
@@ -20,7 +20,7 @@ export function withAuthRedirect <T>(Component: ComponentType<T>){
         let {isAuth, ...restProps} = props;
 
         if (!isAuth) {
-            return <Redirect to={'/login'}/>
+            return <Navigate to={'/login'}/>
         }
 
         return <Component {...restProps as T}/>

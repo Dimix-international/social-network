@@ -1,21 +1,26 @@
-import React from "react";
+import React, {useState} from "react";
 import c from './Info.module.scss';
-import defaultImage from '../../../../assets/images/smile.png'
+import defaultImage from '../../../../assets/images/anonimus.jpg'
 import {GetProfileResponseType} from "../../../../api/users-api";
+import {EditableSpan} from "../../../../UniversalComponents/EditableSpan/EditableSpan";
+import {RequestStatusType} from "../../../../app/app-reducer";
 
 type InfoPropsType = {
     info: GetProfileResponseType
+    isChangingStatus:  RequestStatusType
+    statusProfile:string
+    setStatus:(text:string) => void
 }
 
 export const Info: React.FC<InfoPropsType> = React.memo((props) => {
-        const {info} = props;
+        const {info,isChangingStatus, statusProfile, setStatus} = props;
 
         const linkContacts = (link: string | null) => link ? link : undefined;
 
         const finallyAvatar = info.photos.small ? info.photos.small : defaultImage;
 
         return (
-            <div className={c.info}>
+            <div  className={c.info}>
                 <div className={c.row}>
                     <div className={c.avatar}>
                         <img
@@ -23,17 +28,28 @@ export const Info: React.FC<InfoPropsType> = React.memo((props) => {
                             alt="avatar"/>
                     </div>
                     <div className={c.body}>
-                        <h3 className={c.name}>
-                            {info.fullName}
-                        </h3>
+                        <div className={c.top}>
+                            <h3 className={c.name}>
+                                {info.fullName}
+                            </h3>
+                            <div className={c.status}>
+                                <EditableSpan
+                                    statusText={statusProfile}
+                                    statusLoading={isChangingStatus}
+                                    callback={setStatus}
+                                />
+                            </div>
+                        </div>
                         <div className={c.content}>
                             <p>About
                                 me: {info.aboutMe ? info.aboutMe : 'Расскажу потом'}</p>
                             <p>Looking for a job:
                                 {
                                     info.lookingForAJob
-                                        ? <span className={c.looking__true}>&#10003;</span>
-                                        : <span className={c.looking__false}>x</span>
+                                        ? <span
+                                            className={c.looking__true}>&#10003;</span>
+                                        :
+                                        <span className={c.looking__false}>x</span>
                                 }
                             </p>
                             <p>

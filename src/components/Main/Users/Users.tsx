@@ -3,23 +3,28 @@ import c from "./Users.module.scss";
 import {User} from "../Dialogs/Messages/User/User";
 import {AddFunction} from "../Dialogs/Messages/AddFunction/AddFunction";
 import {UsersFindPropsType} from "./UsersContainer";
-
+import {FilterSearchUsersType} from "../../../Redux/users-reducer";
+import {SuperLoading} from "../../../UniversalComponents/Loading/SuperLoading";
+import {PaginationAdvance} from "./Pagination/PG/PaginationAdvance";
+import {UsersSearchForm} from "./UsersSearchFrom";
 
 type UsersType = UsersFindPropsType & {
-    setCurrentPage:(pageNumber:number) => void
+    onFilterChanged: (filter: FilterSearchUsersType) => void
+    setCurrentPage: (pageNumber: number) => void
 }
 
 
-export const Users: React.FC<UsersType> = (props) => {
+export const Users: React.FC<UsersType> = React.memo((props) => {
     const {
         users,
         totalUserCount,
         pageSize,
+        followingUser,
+        isFetching,
         currentPage,
         setCurrentPage,
-        status,
-        followingInProgress,
-        followingUser
+        filter,
+        onFilterChanged,
     } = props;
 
 
@@ -34,41 +39,46 @@ export const Users: React.FC<UsersType> = (props) => {
 
     return (
         <div className={c.container}>
+
             <div className={c.users}>
-                <div className={c.select}>
-                    {pages.map((p, index) => {
-                        return (
-                            <span
-                                key={p}
-                                className={currentPage === p
-                                    ? `${c.select__item} ${c.active}`
-                                    : c.select__item}
-                                onClick={() => setCurrentPage(p)}
-                            >
-                                    {p}
-                                </span>
-                        )
-                    })}
-                </div>
-                <div>
-                    {users.map(u => {
-                        return (
-                            <User
-                                key={u.id}
-                                trigger={'users'}
-                                id={u.id}
-                                name={u.name}
-                                avatar={u.avatar}
-                                status={u.status}
-                                isFollowed={u.followed}
-                                country={u.country}
-                                followingUser={followingUser}
+                {
+                    isFetching
+                        ? <SuperLoading/>
+                        : <>
+                            <div>
+                                {users.map(u => {
+                                    return (
+                                        <User
+                                            key={u.id}
+                                            trigger={'users'}
+                                            id={u.id}
+                                            name={u.name}
+                                            avatar={u.avatar}
+                                            status={u.status}
+                                            isFollowed={u.followed}
+                                            country={u.country}
+                                            followingUser={followingUser}
+                                        />
+                                    )
+                                })}
+                            </div>
+                            <UsersSearchForm
+                                onFilterChanged={onFilterChanged}
+                                filter={filter}
                             />
-                        )
-                    })}
-                </div>
+                            <PaginationAdvance
+                                totalUser={totalUserCount}
+                                pageSize={pageSize}
+                                currentPage={currentPage}
+                                setCurrentPage={setCurrentPage}
+                            />
+                        </>
+                }
             </div>
             <AddFunction/>
         </div>
     )
-}
+})
+
+
+

@@ -27,9 +27,10 @@ type GetResponseUsersType = {
     totalCount: number
 }
 export const usersApi = {
-    getUsers(currentPage: number, pageSize: number) {
+    getUsers(currentPage: number, pageSize: number, term: string = '', friend: null | boolean = null) {
+
         return instance.get<GetResponseUsersType>(
-            `users?page=${currentPage}&count=${pageSize}`
+            `users?page=${currentPage}&count=${pageSize}&term=${term}${friend === null ? '' : `&friend=${friend}`}`
         )
             .then(response => response.data)
     }
@@ -98,6 +99,12 @@ export const profileApi = {
         return instance.get<GetProfileResponseType>(
             `/profile/${id}`
         )
+    },
+    getStatus(userId: string) {
+        return instance.get(`/profile/status/${userId}`)
+    },
+    setStatus(status: string) {
+        return instance.put<{ status: string }, AxiosResponse<GetAuthMeAnd_PostAndDeleteFollowMe>>(`/profile/status`, {status})
     }
 }
 

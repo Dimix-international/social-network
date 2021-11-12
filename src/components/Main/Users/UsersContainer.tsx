@@ -1,38 +1,44 @@
 import {connect, ConnectedProps} from "react-redux";
 import {
+    FilterSearchUsersType,
     followingUser,
     getUsers,
     UsersFindPageStateType,
 } from "../../../Redux/users-reducer";
 import {RootReducerType} from "../../../Redux/redux-store";
-import React, {Component, ComponentType} from "react";
+import React from "react";
 import {Users} from "./Users";
-import {SuperLoading} from "../../../UniversalComponents/Loading/SuperLoading";
+
 import {AppInitialStateType} from "../../../app/app-reducer";
-import {withAuthRedirect} from "../../../hoc/withAuthRedirect";
-import {compose} from "redux";
+
+
 
 
 class UsersAPIComponent extends React.Component<UsersFindPropsType> {
     componentDidMount() {
-        this.props.getUsers(this.props.currentPage, this.props.pageSize)
+        const {currentPage, pageSize, filter} = this.props;
+        this.props.getUsers(currentPage, pageSize, filter)
     }
 
     setCurrentPage = (pageNumber: number) => {
-        this.props.getUsers(pageNumber, this.props.pageSize)
+        const {pageSize, filter} = this.props;
+        this.props.getUsers(pageNumber, pageSize, filter);
+    }
+
+    onFilterChanged = (filter: FilterSearchUsersType) => {
+
+        const {pageSize} = this.props;
+        this.props.getUsers(1, pageSize, filter);
     }
 
     render() {
         return (
             <>
-                {
-                    this.props.isFetching
-                        ? <SuperLoading/>
-                        : <Users
-                            {...this.props}
-                            setCurrentPage={this.setCurrentPage}
-                        />
-                }
+                <Users
+                    {...this.props}
+                    onFilterChanged={this.onFilterChanged}
+                    setCurrentPage={this.setCurrentPage}
+                />
             </>
         )
     }
@@ -47,6 +53,7 @@ const MapStateToProps = (
             totalUserCount,
             currentPage,
             isFetching,
+            filter,
             followingInProgress
         }, app: {status}
     }: RootReducerType)
@@ -58,6 +65,7 @@ const MapStateToProps = (
         currentPage,
         isFetching,
         status,
+        filter,
         followingInProgress
     }
 }

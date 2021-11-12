@@ -1,13 +1,14 @@
 .info {
   margin-bottom: 20px;
+  height: 202px;
   .row{
     display: flex;
     flex-wrap: wrap;
   }
   .avatar{
-    flex: 0 0 150px;
-    height: 150px;
+    flex: 0 0 180px;
     position: relative;
+    border: 2px solid rgba(41, 41, 191, 0.84);
     border-radius: 3px;
     overflow: hidden;
     img{
@@ -23,10 +24,26 @@
 .body{
   flex: 1 1 auto;
   padding-left: 30px;
-  .name{
-    font-size: 18px;
-    font-weight: 700;
-    margin-bottom: 5px;
+
+  .top {
+    border-bottom: 2px solid rgba(0, 0, 255, 0.69);
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    row-gap: 5px;
+    .name{
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 5px;
+      letter-spacing: 1px;
+
+      &:first-letter {
+        text-transform: uppercase;
+      }
+    }
+    .status {
+      margin-bottom: 10px;
+    }
   }
   .content {
     display: flex;

@@ -20,13 +20,21 @@ export type UsersType = {
     followed: boolean,
 }
 
+export type FilterSearchUsersType = {
+    term:string,
+    friend: null | boolean
+}
 const initialState = {
     users: [] as Array<UsersType>,
-    pageSize: 100,
+    pageSize: 20,
     totalUserCount: 22,
-    currentPage: 3,
+    currentPage: 1,
     isFetching: false,
     followingInProgress: [] as Array<string>,
+    filter: {
+        term: '',
+        friend: null
+    } as FilterSearchUsersType
 }
 export type UsersFindPageStateType = typeof initialState
 
@@ -37,6 +45,7 @@ export type UsersActionType =
     | ReturnType<typeof setUsersCountAC>
     | ReturnType<typeof toggleIsFetchingAC>
     | ReturnType<typeof toggleFollowingInProgressAC>
+    | SetFilterSearchUsersType
 
 
 export const usersReducer = (state: UsersFindPageStateType = initialState, action: UsersActionType): UsersFindPageStateType => {
@@ -77,6 +86,9 @@ export const usersReducer = (state: UsersFindPageStateType = initialState, actio
                         ? [...state.followingInProgress, action.id] //если id нету - добавляем в массив - подписка
                         : state.followingInProgress.filter(el => el === action.id) //удаляем если есть id - отписка
             }
+        }
+        case "SET_FILTER_SEARCH_USERS": {
+            return {...state, filter: action.filter}
         }
         default:
             return state
@@ -126,16 +138,28 @@ export const setUsersAC = (users: Array<UsersType>) => {
     } as const
 }
 
-export const getUsers = (currentPage: number, pageSize: number): AppThunkType => async dispatch => {
+type SetFilterSearchUsersType = {
+    type: 'SET_FILTER_SEARCH_USERS',
+    filter: FilterSearchUsersType
+}
+export const setFilterSearchUsersAC = (filter:FilterSearchUsersType):SetFilterSearchUsersType => {
+    return {
+        type:"SET_FILTER_SEARCH_USERS",
+        filter,
+    }
+}
+
+export const getUsers = (currentPage: number, pageSize: number, filter:FilterSearchUsersType): AppThunkType => async dispatch => {
 
     dispatch(toggleIsFetchingAC(true));
 
     try {
-        const response = await usersApi.getUsers(currentPage, pageSize);
+        const response = await usersApi.getUsers(currentPage, pageSize,filter.term, filter.friend);
         dispatch(setUsersCountAC(response.totalCount));
         const transformData = transformResponseUsers(response.items);
         dispatch(setUsersAC(transformData));
         dispatch(setCurrentPageAC(currentPage));
+        dispatch(setFilterSearchUsersAC(filter));
         dispatch(toggleIsFetchingAC(false));
     } catch (e) {
         dispatch(toggleIsFetchingAC(false));

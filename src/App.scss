@@ -117,14 +117,3 @@ $maxWidthContainer: 1170;
   min-height: 100%;
   display: grid;
 }
-.wrapper {
-  min-height: 100%;
-  display: grid;
-  grid-template-rows: minmax(100px, auto) 1fr minmax(50px, auto);
-  grid-template-columns: 1fr minmax(auto, 1200px) 1fr;
-  grid-template-areas:
-          "header"
-          "main"
-          "footer";
-  row-gap: 20px;
-}

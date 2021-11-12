@@ -1,0 +1,22 @@
+.li {
+  display: block;
+}
+
+.link {
+  display: inline-block;
+  font-size: 24px;
+  width: 100%;
+  color: #242424;
+  padding: 5px 0;
+  transition: all 0.2s;
+
+  &:hover {
+    text-decoration: underline;
+    color: #fff;
+  }
+}
+
+.link.active {
+  color: #ffffff;
+  text-shadow: 0 1px 15px rgba(150, 150, 150, 1);
+}
