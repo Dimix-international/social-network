@@ -55,7 +55,7 @@ const MapStateToProps = (
             isFetching,
             filter,
             followingInProgress
-        }, app: {status}
+        }, app: {status, isInitialized}
     }: RootReducerType)
     : UsersFindPageStateType & AppInitialStateType => {
     return {
@@ -66,6 +66,7 @@ const MapStateToProps = (
         isFetching,
         status,
         filter,
+        isInitialized,
         followingInProgress
     }
 }

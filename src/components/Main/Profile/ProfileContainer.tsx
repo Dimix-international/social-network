@@ -8,7 +8,7 @@ import {
     changeTextForNewPostAC, setStatusProfile, setUserProfile
 } from "../../../Redux/profile-reducer";
 //import {RouteComponentProps, withRouter} from "react-router-dom";
-import {useLocation, useSearchParams} from "react-router-dom";
+import {useLocation, useNavigate, useSearchParams} from "react-router-dom";
 import {withAuthRedirect} from "../../../hoc/withAuthRedirect";
 import {compose} from "redux";
 import {useParams} from "@reach/router";
@@ -46,15 +46,20 @@ type CommonProfileAPIComponentType = RouteComponentProps<PathParamsType>
 export const ProfileAPIComponent = React.memo((props: ProfileUserPropsType) => {
 
     const location = useLocation();
+    const navigate = useNavigate();
     const str = location.pathname;
     let newStr = str.replace(/[^0-9]/g, "");
 
     useEffect(() => {
         if (!newStr) { //если мы просто на profile без userId
-            newStr = '13077';
+            newStr = props.authorizedUserId as string;
+
+            if(!newStr) {
+                navigate('/login', {replace: true})
+            }
         }
         props.setUserProfile(newStr)
-    }, [])
+    }, [newStr])
 
     return (
         <Profile
@@ -63,10 +68,12 @@ export const ProfileAPIComponent = React.memo((props: ProfileUserPropsType) => {
     )
 })
 
-const ProfileMapStateToProps = ({profilePage, app}: RootReducerType) => {
+const ProfileMapStateToProps = ({profilePage, app, auth}: RootReducerType) => {
     return {
         profile: profilePage,
         status: app.status,
+        authorizedUserId: auth.id,
+        isAuthUser: auth.isAuth,
     }
 }
 const ProfileContainer = connect(ProfileMapStateToProps, {
@@ -80,7 +87,6 @@ export type ProfileUserPropsType = ConnectedProps<typeof ProfileContainer>;
 
 export default compose<React.ComponentType>(
     ProfileContainer,
-    //withRouter,
-    //withAuthRedirect,
+    withAuthRedirect,
 )
 (ProfileAPIComponent);

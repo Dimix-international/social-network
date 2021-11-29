@@ -1,11 +1,20 @@
-import React from 'react';
-import {NavLink} from 'react-router-dom';
+import React, {useEffect} from 'react';
+import {NavLink, useNavigate} from 'react-router-dom';
 import s from './Header.module.scss'
 import {HeaderAuthPropsType} from "./HeaderContainer";
 
 
 
-export const Header: React.FC<HeaderAuthPropsType> = ({login,isAuth}) => {
+
+export const Header: React.FC<HeaderAuthPropsType> = ({login,isAuth, logOutUser}) => {
+
+
+    const signOutProfile = () => {
+        logOutUser();
+    }
+    const navigate = useNavigate();
+
+
 
     return (
         <header className={s.header}>
@@ -20,8 +29,13 @@ export const Header: React.FC<HeaderAuthPropsType> = ({login,isAuth}) => {
                         isAuth
                             ? <>
                                 <div>{login}</div>
+                                <button
+                                    onClick={signOutProfile}
+                                    className={s.btn}>
+                                    sign out
+                                </button>
                             </>
-                            : <NavLink to={'/login'}>
+                            : <NavLink className={s.link} to={'/login'}>
                                 sing in
                             </NavLink>
                     }

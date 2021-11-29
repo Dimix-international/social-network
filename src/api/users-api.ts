@@ -43,8 +43,8 @@ export type AuthDataType = {
 }
 type GetAuthMeAnd_PostAndDeleteFollowMe<T = {}> = {
     data: T
-    messages: [],
-    fieldsErrors: [],
+    messages: string [] ,
+    fieldsErrors: string [],
     resultCode: 0,
 }
 
@@ -54,6 +54,18 @@ export const authApi = {
             '/auth/me'
         )
             .then(response => response.data)
+    },
+    signIn(email:string, password:string, rememberMe:boolean) {
+        return instance.post<{email:string, password:string, rememberMe:boolean},
+            AxiosResponse<GetAuthMeAnd_PostAndDeleteFollowMe<{id:number}>>>
+        ('/auth/login', {
+            email,
+            password,
+            rememberMe,
+        })
+    },
+    signOut() {
+        return instance.delete<GetAuthMeAnd_PostAndDeleteFollowMe>('/auth/login')
     }
 }
 

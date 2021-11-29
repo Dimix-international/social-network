@@ -31,6 +31,11 @@
         font-size: 24px;
         font-weight: 700;
         color:#fff;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        row-gap: 10px;
         a{
             font-size: 24px;
             color:#fff;
@@ -39,4 +44,24 @@
 }
 .item {
     color:#000;
+}
+.btn {
+    align-self: flex-end;
+    height: 25px;
+    line-height: 25px;
+    font-size: 1rem;
+    color: #004bfe;
+    font-weight: 500;
+    width: 7rem;
+    border-radius: 10px;
+    background-color: rgba(6,255,255,1);
+    transition: all 0.3s;
+    &:hover{
+        transform: scale(0.95);
+    }
+}
+.link {
+    &:hover{
+        text-decoration: underline;
+    }
 }

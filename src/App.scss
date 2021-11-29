@@ -117,3 +117,14 @@ $maxWidthContainer: 1170;
   min-height: 100%;
   display: grid;
 }
+.loading {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  background-color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

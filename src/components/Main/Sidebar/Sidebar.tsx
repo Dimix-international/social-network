@@ -10,7 +10,7 @@ export const Sidebar = () => {
             <nav className={s.menu}>
 
                 <ul className={s.list}>
-                    <CustomLink to={"/profile"}>Profile</CustomLink>
+                    <CustomLink to={"/profile"}>My profile</CustomLink>
                     <CustomLink to={"/dialogs"}>Messages</CustomLink>
                     <CustomLink to={"/music"}>Music</CustomLink>
                     <CustomLink to={"/video"}>Video</CustomLink>

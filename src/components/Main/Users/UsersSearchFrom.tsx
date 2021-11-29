@@ -1,4 +1,4 @@
-import {Field, Form, Formik, useFormik} from "formik";
+import {Field, Form, Formik} from "formik";
 import React from "react";
 import {FilterSearchUsersType} from "../../../Redux/users-reducer";
 import s from './UsersSearchFrom.module.scss'
@@ -16,8 +16,19 @@ type FormType = {
     term:string,
     friend: 'true' | 'false' | 'null'
 }
+type OptionType = {
+    key:string,
+    value:string
+}
 export const UsersSearchForm: React.FC<UsersSearchFormType> = React.memo((props) => {
-    const {onFilterChanged,filter} = props;
+    const {onFilterChanged} = props;
+
+    const dropdownOptions: Array<OptionType> = [
+        {key: 'All', value: 'null'},
+        {key: 'followed', value: 'true'},
+        {key: 'unfollowed', value: 'false'},
+    ]
+
     const submit =(values:FilterSearchUsersType | FormType, {setSubmitting}:{setSubmitting:(isSubmitting: boolean) => void}) => {
 
         //преобразуем типы, т.к. friend нам приходят string, а нужен boolean, а ts не ругается
@@ -31,18 +42,25 @@ export const UsersSearchForm: React.FC<UsersSearchFormType> = React.memo((props)
     return (
         <div>
             <Formik
-                initialValues={{ term: '', friend: null}}
+                initialValues={{ term: '', friend: 'null'}}
                 validate={userSearchValidateForm}
                 onSubmit={submit}
             >
                 {({ isSubmitting }) => (
                     <Form>
-                        <Field className={s.input} type="text" name="term" />
+                        <Field className={s.input} type="text" name="term"  />
                         {/*// Renders an HTML <select>*/}
                         <Field className={s.select} name="friend" as="select">
-                            <option value="null">All</option>
-                            <option value="true">followed</option>
-                            <option value="false">unfollowed</option>
+                            {
+                                dropdownOptions.map(option => (
+                                    <option
+                                        key={option.key}
+                                        value={option.value}
+                                    >
+                                        {option.key}
+                                    </option>
+                                ))
+                            }
                         </Field>
                         <button className={s.button} type="submit" disabled={isSubmitting}>
                             Search

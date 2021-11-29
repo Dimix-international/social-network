@@ -1,5 +1,5 @@
 import {v1} from "uuid";
-import {authApi, GetProfileResponseType, profileApi} from "../api/users-api";
+import {GetProfileResponseType, profileApi} from "../api/users-api";
 import {AppThunkType} from "./redux-store";
 import {RequestStatusType, setStatusAppAC} from "../app/app-reducer";
 

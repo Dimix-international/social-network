@@ -5,6 +5,7 @@ import "boxicons"
 import {RequestStatusType} from "../../app/app-reducer";
 import {useClickOutside} from "../../helper/UseClickOutside";
 
+
 type EditableSpanPropsType = {
     statusText: string
     statusLoading: RequestStatusType,

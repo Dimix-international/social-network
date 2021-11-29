@@ -6,6 +6,7 @@ type SuperButtonPropsType =  {
     callback?:() => void
     addClass?:string
     disableParams?: boolean
+    type?: "button" | "submit" | "reset"
 }
 export const SuperButton = (props:SuperButtonPropsType) => {
     const onClickHandler = () => {
@@ -16,6 +17,7 @@ export const SuperButton = (props:SuperButtonPropsType) => {
     return (
         <>
             <button
+                type={props.type ? props.type : 'button'}
                 disabled={props.disableParams && props.disableParams}
                 className={finalClass}
                 onClick={onClickHandler}>{props.name}
