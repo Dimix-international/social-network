@@ -35,6 +35,7 @@ export const Info: React.FC<InfoPropsType> = React.memo((props) => {
                             <div className={c.status}>
                                 <EditableSpan
                                     statusText={statusProfile}
+                                    profileId = {info.userId}
                                     statusLoading={isChangingStatus}
                                     callback={setStatus}
                                 />

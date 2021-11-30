@@ -20,7 +20,7 @@ type OptionType = {
     key:string,
     value:string
 }
-export const UsersSearchForm: React.FC<UsersSearchFormType> = React.memo((props) => {
+export const    UsersSearchForm: React.FC<UsersSearchFormType> = React.memo((props) => {
     const {onFilterChanged} = props;
 
     const dropdownOptions: Array<OptionType> = [

@@ -56,8 +56,12 @@
     border-radius: 10px;
     background-color: rgba(6,255,255,1);
     transition: all 0.3s;
+    cursor: pointer;
     &:hover{
         transform: scale(0.95);
+    }
+    &:disabled {
+        cursor: auto;
     }
 }
 .link {

@@ -20,6 +20,14 @@
     color:#fff;
   }
 }
+.withoutCursor {
+  cursor: auto;
+}
+.status.withoutCursor:hover{
+  background-color: transparent;
+  color: inherit;
+}
+
 .status.active{
   color: black;
 }

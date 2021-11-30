@@ -1,19 +1,16 @@
-import React, {useEffect} from 'react';
-import {NavLink, useNavigate} from 'react-router-dom';
+import React from 'react';
+import {NavLink} from 'react-router-dom';
 import s from './Header.module.scss'
 import {HeaderAuthPropsType} from "./HeaderContainer";
 
 
-
-
-export const Header: React.FC<HeaderAuthPropsType> = ({login,isAuth, logOutUser}) => {
+export const Header: React.FC<HeaderAuthPropsType> = ({login,isAuth, logOutUser,
+                                                          statusLoading}) => {
 
 
     const signOutProfile = () => {
         logOutUser();
     }
-    const navigate = useNavigate();
-
 
 
     return (
@@ -30,6 +27,7 @@ export const Header: React.FC<HeaderAuthPropsType> = ({login,isAuth, logOutUser}
                             ? <>
                                 <div>{login}</div>
                                 <button
+                                    disabled={statusLoading === 'loading'}
                                     onClick={signOutProfile}
                                     className={s.btn}>
                                     sign out

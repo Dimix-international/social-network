@@ -1,5 +1,6 @@
 import {AppThunkType} from "./redux-store";
 import {authApi, profileApi} from "../api/users-api";
+import {setStatusAppAC} from "../app/app-reducer";
 
 type ValueOrNullType = number | string | null;
 
@@ -104,17 +105,21 @@ export const logInUser = (email:string, password:string, rememberMe:boolean):App
 
 export const logOutUser = ():AppThunkType => async dispatch => {
 
+    dispatch(setStatusAppAC('loading'));
+
     try {
 
        const response =  await authApi.signOut();
 
         if(response.data.resultCode === 0) {
-            dispatch(setUserAuthAC(null, null, null, null, false))
+            dispatch(setUserAuthAC(null, null, null, null, false));
+            dispatch(setStatusAppAC('succeeded'));
         }
 
 
     } catch (e) {
         console.warn(e)
+        dispatch(setStatusAppAC('failed'));
     }
 
 }

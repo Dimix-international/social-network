@@ -8,13 +8,14 @@ import {SuperLoading} from "../../../UniversalComponents/Loading/SuperLoading";
 import {PaginationAdvance} from "./Pagination/PG/PaginationAdvance";
 import {UsersSearchForm} from "./UsersSearchFrom";
 
-type UsersType = UsersFindPropsType & {
+
+type UsersPropsType = UsersFindPropsType & {
     onFilterChanged: (filter: FilterSearchUsersType) => void
     setCurrentPage: (pageNumber: number) => void
 }
 
 
-export const Users: React.FC<UsersType> = React.memo((props) => {
+export const Users: React.FC<UsersPropsType> = React.memo((props) => {
     const {
         users,
         totalUserCount,
@@ -27,6 +28,7 @@ export const Users: React.FC<UsersType> = React.memo((props) => {
         onFilterChanged,
     } = props;
 
+    console.log('u')
 
     // Math.ceil - округляем в больш сторону чтобы всех пользователей показать
     let pagesCount = Math.ceil(totalUserCount / pageSize);
@@ -35,7 +37,6 @@ export const Users: React.FC<UsersType> = React.memo((props) => {
     for (let i = 1; i <= pagesCount; i++) {
         pages.push(i);
     }
-
 
     return (
         <div className={c.container}>
@@ -69,7 +70,7 @@ export const Users: React.FC<UsersType> = React.memo((props) => {
                             <PaginationAdvance
                                 totalUser={totalUserCount}
                                 pageSize={pageSize}
-                                currentPage={currentPage}
+                                pageCurrent={currentPage}
                                 setCurrentPage={setCurrentPage}
                             />
                         </>

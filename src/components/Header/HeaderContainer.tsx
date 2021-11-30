@@ -16,10 +16,11 @@ class HeaderAPIComponent extends React.Component<HeaderAuthPropsType> {
     }
 }
 
-const MapStateToProps = ({auth}: RootReducerType) => {
+const MapStateToProps = ({auth, app: {status}}: RootReducerType) => {
     return {
         login: auth.login,
         isAuth: auth.isAuth,
+        statusLoading: status
     }
 }
 const HeaderContainer = connect(MapStateToProps, {

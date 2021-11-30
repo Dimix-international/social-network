@@ -1,10 +1,11 @@
 import React, {useState} from "react";
 import s from './PaginationAdvance.module.css'
+import {useSearchParams} from "react-router-dom";
 
 export type PaginationType = {
     totalUser: number,
     pageSize: number,
-    currentPage: number
+    pageCurrent: number
     setCurrentPage: (pageNumber: number) => void
 }
 type LiArrayType = {
@@ -14,7 +15,15 @@ type LiArrayType = {
 }
 
 export const PaginationAdvance: React.FC<PaginationType> = (props) => {
-    const {totalUser, pageSize, currentPage, setCurrentPage} = props;
+    const {totalUser, pageSize, pageCurrent , setCurrentPage} = props;
+
+    const [searchParams, setSearchParams] = useSearchParams();
+    const pageQuery = searchParams.get('page') || ''
+
+
+    const [currentPage, setPage] = useState(parseInt(pageQuery
+        ? pageQuery
+        : String(pageCurrent)));//текущая страница*/
 
     const totalPages = Math.ceil(totalUser / pageSize)
 
@@ -40,7 +49,7 @@ export const PaginationAdvance: React.FC<PaginationType> = (props) => {
 
         if (totalPages === 1) {
             liArray.push({
-                className:`${s.numb} ${s.active}`,
+                className: `${s.numb} ${s.active}`,
                 name: '1',
                 togglePage() {
                     setCurrentPage(currentPage)
@@ -48,7 +57,7 @@ export const PaginationAdvance: React.FC<PaginationType> = (props) => {
             })
             return liArray
         }
-        if(totalPages > 1 && totalPages < 5) {
+        if (totalPages > 1 && totalPages < 5) {
             for (let i = 1; i < 5; i++) {
                 if (i > totalPages) {
                     continue;
@@ -173,11 +182,13 @@ type PageType = {
     name: string
     callback?: () => void
 }
-export const PagePagination: React.FC<PageType> = React.memo(({
-                                                                  className,
-                                                                  name,
-                                                                  callback
-                                                              }) => {
+export const PagePagination: React.FC<PageType> = React.memo((
+    {
+        className,
+        name,
+        callback,
+    }) => {
+
 
         const onClickHandler = () => {
             callback && callback();

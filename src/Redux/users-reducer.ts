@@ -149,7 +149,7 @@ export const setFilterSearchUsersAC = (filter:FilterSearchUsersType):SetFilterSe
     }
 }
 
-export const getUsers = (currentPage: number, pageSize: number, filter:FilterSearchUsersType): AppThunkType => async dispatch => {
+export const requestUsers = (currentPage: number, pageSize: number, filter:FilterSearchUsersType): AppThunkType => async dispatch => {
 
     dispatch(toggleIsFetchingAC(true));
 
